@@ -1,64 +1,15 @@
 from PyQt5.QtCore import QCoreApplication
 import time
-import random
 from objetos import Config,Fecha
 from core.formulario import form
 from _test_.WidgetGestor import Configuraciones
 from PyQt5.QtWidgets import QApplication
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import os
-import threading
 
-suministro = random.getrandbits(32)
+def kimera(navegador,FORMULARIO,status_application=None):
 
-# fecha = Fecha(
-# 	dia = 31,
-# 	mes = 10,
-# 	anio = 2024)
-
-navegador = Config(
-    url = "https://docs.google.com/forms/d/e/1FAIpQLScl9GppEl6eY8sri9rZ8qOoQWRVj0-0m0G-Z2Gc7wehFGIVww/viewform",
-    profile = os.path.join(os.path.expanduser('~'),'Proyects','kiwi','ur8ejeca.default-release'),
-    headless = False,
-    timeout = 40)
-
-stop_application = False
-
-FORMULARIO = {
-    "tecnico":"Tony Guizado",
-    "suministro":int("1846214"),
-
-    "se_puede_realizar":"Si",
-
-    "fecha":Fecha(
-    	dia = 31,
-	    mes = 10,
-	    anio = 2024),
-
-    "tipo_medidor_retirado":"A3R",
-    "ubicacion":"Externo",
-    "medidor_antes":int("5519560"),
-
-    "tranferencia_imagen":int("1"),
-
-    "tipo_medidor_instalado":"ITECHENE",
-    "medidor_despues":int("5550326"),
-    
-    "operador":"Entel",
-    "senal":"Media",
-    
-    "telemedida":"No",#Sí
-
-    "se_entregó_medidor":"Sí",
-
-    "tranferencia_mutiple":int("5"),
-
-}
-
-def main():
-
-    global stop_application
+    stop_application = False
 
     try:
         with form(config=navegador) as session:
@@ -132,14 +83,9 @@ def main():
         stop_application = True  # Indicar que la aplicación debe detenerse
         QCoreApplication.quit()  # Detener la aplicación PyQt5
 
-def Widget():
+def Guiki(perfil):
     app = QApplication([])
-    window = Configuraciones()
+    window = Configuraciones(perfil)
     window.show()
     app.exec()
 
-if __name__=="__main__":
-    navegador_thread = threading.Thread(target=main)
-    navegador_thread.start()
-    Widget()
-    navegador_thread.join()

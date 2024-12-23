@@ -1,7 +1,7 @@
 
 from typing import Optional
 from objetos import Config
-from execption.exceptions import GoogleFormularioException
+# from execption.exceptions import GoogleFormularioException
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -40,7 +40,7 @@ class Base:
             self.driver.set_window_rect(x=0, y=0, width=700, height=760)
 
         except Exception as e:
-            raise GoogleFormularioException(f"Error al conectar: {str(e)}")
+            print('error: ',e)
         
     def close(self) -> None:
         """Cierra el navegador si está abierto"""

@@ -1,7 +1,4 @@
 
-class GoogleFormularioException:
-    """mensaje"""
-
 class exception_file_successfully_uploaded:
     """control de erro en la session de file_successfully_uploaded """
 

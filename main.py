@@ -180,6 +180,3 @@ class Event(Widget):
 #     session.event_accions('Tony Guizado',tecnico=True)
 #     session.event_information(suministro='222229')
 #     session.event_accions(siguiente=True)
-
-
-

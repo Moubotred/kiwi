@@ -2,12 +2,11 @@ from PyQt5.QtCore import Qt, QUrl, QMimeData
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QSplitter, QHBoxLayout
 from PyQt5.QtGui import QPixmap, QDrag
 import os
-import pyautogui
-from getpass import getuser
 
 class Configuraciones(QMainWindow):
-    def __init__(self):
+    def __init__(self,perfil):
         super().__init__()
+        self.perfil = perfil
         self.initui()
     
     def initui(self):
@@ -24,8 +23,9 @@ class Configuraciones(QMainWindow):
         """--------------------"""
 
         """ Sección gestor de imágenes """ 
-        self.imagenes = os.path.join(os.path.expanduser('~'),'Proyects','kiwi','imagenes')
-        self.directorio = self.imagenes if os.path.exists(self.imagenes) else os.makedirs(self.imagenes,exist_ok=True)
+        self.imagenes = os.path.join(os.path.expanduser('~'),self.perfil)
+        self.directorio = self.imagenes if os.path.abspath(self.imagenes) else os.makedirs(self.imagenes,exist_ok=True)
+        # self.directorio = '/home/kimshizi/Documents/pqt5/_test_/imagenes'
         self.indice_imagenes = sorted(os.listdir(self.directorio))
         self.indice_inicial = 0
         self.indice_actual = 0  # Iniciar en 0

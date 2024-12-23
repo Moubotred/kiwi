@@ -8,10 +8,6 @@ from selenium.common.exceptions import (TimeoutException,NoSuchElementException,
 from core.components import Components
 from core.message import flagmessage,popmessage
 from selenium.webdriver.remote.webelement import WebElement
-from execption.exceptions import (GoogleFormularioException,
-exception_file_successfully_uploaded,
-Ex_borraformualario
-)
 
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -105,7 +101,7 @@ class Widgets(Base):
                 logging.info('[+] formulario borrado exitosamente')
 
 
-        except Ex_borraformualario as e:
+        except Exception as e:
             logging.error(f'[!] error funcion {self.get_function_name()} tipo:{e}')
 
     def abrir_menu(self)-> bool:
@@ -416,160 +412,165 @@ class Widgets(Base):
         except Exception as e :
             logging.info(f'[+] error funcion: [{self.get_function_name()}] tipo: {e}')
 
+    """
+    Funciones no usadas
+        Descripcion:
+        las funciones que estan comentadas no se estan usando por ahora
+        o son funciones que se usan de ejemplos
+    """
 
-    def elements_get(self,css_selector):
-        try:
-            return self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, css_selector)))
-        except TimeoutException:
-            return []  # Devolver lista vacía en caso de no encontrar elementos
+    # def elements_get(self,css_selector):
+    #     try:
+    #         return self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, css_selector)))
+    #     except TimeoutException:
+    #         return []  # Devolver lista vacía en caso de no encontrar elementos
+    # def buttonx(self,item:int):
+    #     css_button_upload = '.E6FpNe.Ce1Y1c'
+    #     try:
+    #         """preiona el boton de subir contenido"""
+    #         time.sleep(5)
+    #         button_subir = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,css_button_upload))).click()
+    #         """----------------------------------"""
+    #         extraer_texto_Examinar = self.buscar_iframe()
+    #         if extraer_texto_Examinar:
+    #             if self.componente._drag_and_drop():
+    #                 self.file_successfully_uploaded(posicion=item)
 
-    def buttonx(self,item:int):
-        css_button_upload = '.E6FpNe.Ce1Y1c'
-        try:
-            """preiona el boton de subir contenido"""
-            time.sleep(5)
-            button_subir = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,css_button_upload))).click()
-            """----------------------------------"""
-            extraer_texto_Examinar = self.buscar_iframe()
-            if extraer_texto_Examinar:
-                if self.componente._drag_and_drop():
-                    self.file_successfully_uploaded(posicion=item)
+    #     except (TimeoutException,Exception) as e:
+    #         print(f'error:{str(e)}')
 
-        except (TimeoutException,Exception) as e:
-            print(f'error:{str(e)}')
+    #         # print('[*] intentando borrar imagen actual...')
 
-            # print('[*] intentando borrar imagen actual...')
-
-            # if self._botonCerrar():
-            #     self.buttonx(item)
-            #     print('[*] imagen borrada exitosamente...')
-            # else:
-            #     print('[*] fallo al borrar imagen........')
+    #         # if self._botonCerrar():
+    #         #     self.buttonx(item)
+    #         #     print('[*] imagen borrada exitosamente...')
+    #         # else:
+    #         #     print('[*] fallo al borrar imagen........')
                         
-    def upload(self,iteraciones,force=False):
+    # def upload(self,iteraciones,force=False):
 
-        css_button_upload = '.E6FpNe.Ce1Y1c'
-        xpath_iframe = '/html/body/div[3]/div[2]/div/iframe'
-        xpath_examinar = '/html/body/div[1]/div[2]/div[3]/div[2]/div[2]/div/div/div/div[1]/div/div[2]/div/button/span'
+    #     css_button_upload = '.E6FpNe.Ce1Y1c'
+    #     xpath_iframe = '/html/body/div[3]/div[2]/div/iframe'
+    #     xpath_examinar = '/html/body/div[1]/div[2]/div[3]/div[2]/div[2]/div/div/div/div[1]/div/div[2]/div/button/span'
 
-        # for item in range(iteraciones):
-        try:
+    #     # for item in range(iteraciones):
+    #     try:
 
-            if isinstance(iteraciones,int):
-                self.buttonx(iteraciones)
+    #         if isinstance(iteraciones,int):
+    #             self.buttonx(iteraciones)
 
-            # if force:
-            #     self.agregar(4)
+    #         # if force:
+    #         #     self.agregar(4)
 
-        except TimeoutException:
-            print("[!] Timeout: No se pudo encontrar el elemento en la iteración ")
-        except NoSuchElementException:
-            print("[!] NoSuchElement: No se pudo localizar el elemento en la iteración")
-        except AttributeError as e:
-            print(f"[!] AttributeError: {e}")
-        except Exception as e:
-            print(f"[!] Error inesperado: {e}")
+    #     except TimeoutException:
+    #         print("[!] Timeout: No se pudo encontrar el elemento en la iteración ")
+    #     except NoSuchElementException:
+    #         print("[!] NoSuchElement: No se pudo localizar el elemento en la iteración")
+    #     except AttributeError as e:
+    #         print(f"[!] AttributeError: {e}")
+    #     except Exception as e:
+    #         print(f"[!] Error inesperado: {e}")
 
-    def _Verify_file_upload_correctly(self):
-        verificacion = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.yP1fJf')))
-        if verificacion:
-            buscar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.KdVr9e.oyDRHc')))
-            esquema = buscar.get_attribute('data-view-file-link')
-            return esquema
-        return 'example.com'
+    # def _Verify_file_upload_correctly(self):
+    #     verificacion = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.yP1fJf')))
+    #     if verificacion:
+    #         buscar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.KdVr9e.oyDRHc')))
+    #         esquema = buscar.get_attribute('data-view-file-link')
+    #         return esquema
+    #     return 'example.com'
 
-    def file_successfully_uploaded(self,posicion:int)-> None:
-        try:
-            imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.yP1fJf')))
-            total_imagenes_cargadas = len(imagencargada)
-            if total_imagenes_cargadas > 0:
-                dominiodrive = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.KdVr9e.oyDRHc')))
-                url_extraction = dominiodrive[posicion].get_attribute('data-view-file-link')
-                self.componente._uploaded_file_verification(esquema=url_extraction)
+    # def file_successfully_uploaded(self,posicion:int)-> None:
+    #     try:
+    #         imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.yP1fJf')))
+    #         total_imagenes_cargadas = len(imagencargada)
+    #         if total_imagenes_cargadas > 0:
+    #             dominiodrive = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,'.KdVr9e.oyDRHc')))
+    #             url_extraction = dominiodrive[posicion].get_attribute('data-view-file-link')
+    #             self.componente._uploaded_file_verification(esquema=url_extraction)
 
-        except (TimeoutException,Exception) as e:
-            raise exception_file_successfully_uploaded(f"error al procesar la verficacion de archivo error: {str(e)}")
+    #     except (TimeoutException,Exception) as e:
+    #         raise exception_file_successfully_uploaded(f"error al procesar la verficacion de archivo error: {str(e)}")
 
-    def _dom_elements_questions(self,elemento_padre):
-        try:
-            time.sleep(1)
-            return self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,elemento_padre)))
-        except TimeoutException:
-            return False
+    # def _dom_elements_questions(self,elemento_padre):
+    #     try:
+    #         time.sleep(1)
+    #         return self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,elemento_padre)))
+    #     except TimeoutException:
+    #         return False
         
-    def sandbox_elements(self,elemento):
-        modelo = self._dom_elements_questions(elemento)[0]
-        modelo.find_elements()
+    # def sandbox_elements(self,elemento):
+    #     modelo = self._dom_elements_questions(elemento)[0]
+    #     modelo.find_elements()
 
-    def _add_file_drive(self,*argv,**kwargs) -> str:
-        try:
-            eliminar_archivo = self._botonCerrar()
-            if kwargs.get('activate_mode_test') is True:
-                if eliminar_archivo is True and kwargs.get('botonCerrar') is True:
-                    verification_exists_button = self._botonSubir()
-                    if verification_exists_button:
-                        botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
-                        self.driver.implicitly_wait(5)
-                        # self.componente._drag_and_drop()
-                        # verify_file = self._Verify_file_upload_correctly()
-                        # self.componente._uploaded_file_verification(esquema=verify_file)
-                        return True
+    # def _add_file_drive(self,*argv,**kwargs) -> str:
+    #     try:
+    #         eliminar_archivo = self._botonCerrar()
+    #         if kwargs.get('activate_mode_test') is True:
+    #             if eliminar_archivo is True and kwargs.get('botonCerrar') is True:
+    #                 verification_exists_button = self._botonSubir()
+    #                 if verification_exists_button:
+    #                     botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
+    #                     self.driver.implicitly_wait(5)
+    #                     # self.componente._drag_and_drop()
+    #                     # verify_file = self._Verify_file_upload_correctly()
+    #                     # self.componente._uploaded_file_verification(esquema=verify_file)
+    #                     return True
 
-            if eliminar_archivo:
-                verification_exists_button = self._botonSubir()
-                if verification_exists_button:
-                    botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
-                    self.driver.implicitly_wait(5)
-                    self.componente._drag_and_drop()
-                    verify_file = self._Verify_file_upload_correctly()
-                    self.componente._uploaded_file_verification(esquema=verify_file)
-                    return True            
+    #         if eliminar_archivo:
+    #             verification_exists_button = self._botonSubir()
+    #             if verification_exists_button:
+    #                 botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
+    #                 self.driver.implicitly_wait(5)
+    #                 self.componente._drag_and_drop()
+    #                 verify_file = self._Verify_file_upload_correctly()
+    #                 self.componente._uploaded_file_verification(esquema=verify_file)
+    #                 return True            
 
-            self._botonSubir()
-            botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
-            self.driver.implicitly_wait(5)
+    #         self._botonSubir()
+    #         botonExaminar = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'.fFW7wc.XKSfm-Sx9Kwc.picker-dialog')))
+    #         self.driver.implicitly_wait(5)
 
-            # /html/body/div[3]/div[2]/div
+    #         # /html/body/div[3]/div[2]/div
 
 
-            # self.componente._drag_and_drop()
-            # verify_file = self._Verify_file_upload_correctly()
-            # self.componente._uploaded_file_verification(esquema=verify_file)
+    #         # self.componente._drag_and_drop()
+    #         # verify_file = self._Verify_file_upload_correctly()
+    #         # self.componente._uploaded_file_verification(esquema=verify_file)
 
-        except TimeoutException:
-            raise GoogleFormularioException('Fallo en relizar los clicks')
+    #     except TimeoutException:
+    #         raise GoogleFormularioException('Fallo en relizar los clicks')
 
-    def eliminar(self):
-        googledriverimagen = '.KdVr9e.oyDRHc'
-        try:
-            googledriverimagen = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,googledriverimagen)))
-            total_de_elemetos = len(googledriverimagen)
-            if total_de_elemetos > 0:
-                botonCerrar = self.driver.find_elements(By.CSS_SELECTOR, '.XuQwKc')
-                for item in range(len(botonCerrar)):
-                    botonCerrar[item].click()
-                    print('[*] elimiando elemeto: ',item)
+    # def eliminar(self):
+    #     googledriverimagen = '.KdVr9e.oyDRHc'
+    #     try:
+    #         googledriverimagen = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,googledriverimagen)))
+    #         total_de_elemetos = len(googledriverimagen)
+    #         if total_de_elemetos > 0:
+    #             botonCerrar = self.driver.find_elements(By.CSS_SELECTOR, '.XuQwKc')
+    #             for item in range(len(botonCerrar)):
+    #                 botonCerrar[item].click()
+    #                 print('[*] elimiando elemeto: ',item)
 
-        except TimeoutException:
-            print('[*] Campo limpio de imagenes')
+    #     except TimeoutException:
+    #         print('[*] Campo limpio de imagenes')
 
-    def tranferencia_multiples_imagenes(self,subir_imagenes:int):
-        for imagen in range(subir_imagenes):
-            localizar_bt_subir = self.wait.until(lambda d:(time.sleep(5), d.find_element(By.CSS_SELECTOR,CONFIG['bt_subir']))[1])
-            localizar_bt_subir.click()
+    # def tranferencia_multiples_imagenes(self,subir_imagenes:int):
+    #     for imagen in range(subir_imagenes):
+    #         localizar_bt_subir = self.wait.until(lambda d:(time.sleep(5), d.find_element(By.CSS_SELECTOR,CONFIG['bt_subir']))[1])
+    #         localizar_bt_subir.click()
 
-            localizar_dialog_drive = self.wait.until(lambda localizar_bt_subir:localizar_bt_subir.find_element(By.CSS_SELECTOR,CONFIG['dialogdrive']))
-            self.driver.implicitly_wait(5)
+    #         localizar_dialog_drive = self.wait.until(lambda localizar_bt_subir:localizar_bt_subir.find_element(By.CSS_SELECTOR,CONFIG['dialogdrive']))
+    #         self.driver.implicitly_wait(5)
 
-            mover_imagen = self.componente._drag_and_drop()
-            if mover_imagen:
-                imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['localizar_imagenes'])))
-                total_imagenes_cargadas = len(imagencargada)
-                if total_imagenes_cargadas > 0:
-                    time.sleep(4)
-                    localizar_dominiodrive_imagen_actual = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['imagen_actual'])))
-                    url_extraction = localizar_dominiodrive_imagen_actual[imagen].get_attribute('data-view-file-link')
-                    transferencia_exitosa = self.componente._uploaded_file_verification(esquema=url_extraction)
-                    if transferencia_exitosa:
-                        logging.info('[+] transferencia de archivo exitoso')
+    #         mover_imagen = self.componente._drag_and_drop()
+    #         if mover_imagen:
+    #             imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['localizar_imagenes'])))
+    #             total_imagenes_cargadas = len(imagencargada)
+    #             if total_imagenes_cargadas > 0:
+    #                 time.sleep(4)
+    #                 localizar_dominiodrive_imagen_actual = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['imagen_actual'])))
+    #                 url_extraction = localizar_dominiodrive_imagen_actual[imagen].get_attribute('data-view-file-link')
+    #                 transferencia_exitosa = self.componente._uploaded_file_verification(esquema=url_extraction)
+    #                 if transferencia_exitosa:
+    #                     logging.info('[+] transferencia de archivo exitoso')
 

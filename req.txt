@@ -6,3 +6,5 @@ PyQt5_sip
 pyqt5-tools
 PyQtWebEngine
 PyQtWebEngine-Qt5
+colorama
+pytest
