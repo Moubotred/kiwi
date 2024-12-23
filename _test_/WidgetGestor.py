@@ -4,9 +4,9 @@ from PyQt5.QtGui import QPixmap, QDrag
 import os
 
 class Configuraciones(QMainWindow):
-    def __init__(self,perfil):
+    def __init__(self,upload):
         super().__init__()
-        self.perfil = perfil
+        self.upload = upload
         self.initui()
     
     def initui(self):
@@ -23,7 +23,7 @@ class Configuraciones(QMainWindow):
         """--------------------"""
 
         """ Sección gestor de imágenes """ 
-        self.imagenes = os.path.join(os.path.expanduser('~'),self.perfil)
+        self.imagenes = os.path.join(os.path.expanduser('~'),self.upload)
         self.directorio = self.imagenes if os.path.abspath(self.imagenes) else os.makedirs(self.imagenes,exist_ok=True)
         # self.directorio = '/home/kimshizi/Documents/pqt5/_test_/imagenes'
         self.indice_imagenes = sorted(os.listdir(self.directorio))
