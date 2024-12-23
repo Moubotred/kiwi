@@ -7,7 +7,7 @@ from _test_.WidgetGestor import Configuraciones
 from PyQt5.QtWidgets import QApplication
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+import os
 import threading
 
 suministro = random.getrandbits(32)
@@ -19,7 +19,7 @@ suministro = random.getrandbits(32)
 
 navegador = Config(
     url="https://docs.google.com/forms/d/e/1FAIpQLScl9GppEl6eY8sri9rZ8qOoQWRVj0-0m0G-Z2Gc7wehFGIVww/viewform",
-    profile="/home/kimshizi/.mozilla/firefox/ur8ejeca.default-release",
+    profile= os.path.join(os.path.expanduser('~'),'Proyects','kiwi','ur8ejeca.default-release'),
     headless=False,
     timeout=40)
 
