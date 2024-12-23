@@ -25,7 +25,7 @@ class Configuraciones(QMainWindow):
 
         """ Sección gestor de imágenes """ 
         self.imagenes = os.path.join(os.path.expanduser('~'),'Proyects','kiwi','imagenes')
-        self.directorio = self.imagenes if any([item.endswith('.jpg') for item in os.listdir(self.imagenes)]) else os.makedirs(self.imagenes,exist_ok=True)
+        self.directorio = self.imagenes if os.path.exists(self.imagenes) else os.makedirs(self.imagenes,exist_ok=True)
         self.indice_imagenes = sorted(os.listdir(self.directorio))
         self.indice_inicial = 0
         self.indice_actual = 0  # Iniciar en 0
