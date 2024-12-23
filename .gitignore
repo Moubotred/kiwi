@@ -15,5 +15,5 @@ lib/
 lib64/
 
 *.log
-*.txt
+.txt
 *.cfg
