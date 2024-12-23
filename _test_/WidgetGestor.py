@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLa
 from PyQt5.QtGui import QPixmap, QDrag
 import os
 import pyautogui
+from getpass import getuser
 
 class Configuraciones(QMainWindow):
     def __init__(self):
@@ -23,7 +24,8 @@ class Configuraciones(QMainWindow):
         """--------------------"""
 
         """ Sección gestor de imágenes """ 
-        self.directorio = '/home/kimshizi/Documents/pqt5/_test_/imagenes'
+        self.imagenes = os.path.join(os.path.expanduser('~'),'Proyects','imagenes')
+        self.directorio = os.path.exists(self.imagenes) if any([item.endswith('.jpg') for item in os.listdir(self.imagenes)]) else os.makedirs(self.imagenes,exist_ok=True)
         self.indice_imagenes = sorted(os.listdir(self.directorio))
         self.indice_inicial = 0
         self.indice_actual = 0  # Iniciar en 0
