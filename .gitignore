@@ -15,6 +15,7 @@ lib/
 lib64/
 
 ur8ejeca.default-release/
+perfil.
 
 *.log
 .txt
