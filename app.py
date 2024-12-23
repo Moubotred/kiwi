@@ -1,3 +1,6 @@
+# PYTHONPATH=/home/kimshizi/Documents/pqt5/
+# PYTHONPATH=/home/kimshizi/Proyects/kiwi
+
 from PyQt5.QtCore import QCoreApplication
 import time
 from objetos import Config,Fecha
