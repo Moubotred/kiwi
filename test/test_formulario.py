@@ -48,11 +48,11 @@ formulario = {
 
 }
 
-capturas = 'Documents/pqt5/capturas' # local
-# capturas = 'Proyects/kiwi/capturas' # vps
+# capturas = 'Documents/pqt5/capturas' # local
+capturas = 'Proyects/kiwi/capturas' # vps
 
-upload_driver = 'Documents/pqt5/imagenes' # local
-# upload_driver = 'Proyects/kiwi/imagenes' # vps
+# upload_driver = 'Documents/pqt5/imagenes' # local
+upload_driver = 'Proyects/kiwi/imagenes' # vps
 
 if __name__== "__main__":
     navegador_thread = threading.Thread(target=kimera,args=(navegador,capturas,formulario))
