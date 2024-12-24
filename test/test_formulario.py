@@ -57,5 +57,5 @@ upload_driver = 'Documents/pqt5/imagenes' # local
 if __name__== "__main__":
     navegador_thread = threading.Thread(target=kimera,args=(navegador,capturas,formulario))
     navegador_thread.start()
-    # Guiki(upload = upload_driver)
+    Guiki(upload = upload_driver)
     navegador_thread.join()
