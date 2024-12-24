@@ -567,7 +567,7 @@ class Widgets(Base):
                 imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['localizar_imagenes'])))
                 total_imagenes_cargadas = len(imagencargada)
                 if total_imagenes_cargadas > 0:
-                    time.sleep(4)
+                    time.sleep(7)
                     localizar_dominiodrive_imagen_actual = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['imagen_actual'])))
                     url_extraction = localizar_dominiodrive_imagen_actual[imagen].get_attribute('data-view-file-link')
                     transferencia_exitosa = self.componente._uploaded_file_verification(esquema=url_extraction)
