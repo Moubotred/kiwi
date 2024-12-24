@@ -554,23 +554,22 @@ class Widgets(Base):
     #     except TimeoutException:
     #         print('[*] Campo limpio de imagenes')
 
-    # def tranferencia_multiples_imagenes(self,subir_imagenes:int):
-    #     for imagen in range(subir_imagenes):
-    #         localizar_bt_subir = self.wait.until(lambda d:(time.sleep(5), d.find_element(By.CSS_SELECTOR,CONFIG['bt_subir']))[1])
-    #         localizar_bt_subir.click()
+    def tranferencia_multiples_imagenes(self,subir_imagenes:int):
+        for imagen in range(subir_imagenes):
+            localizar_bt_subir = self.wait.until(lambda d:(time.sleep(5), d.find_element(By.CSS_SELECTOR,CONFIG['bt_subir']))[1])
+            localizar_bt_subir.click()
 
-    #         localizar_dialog_drive = self.wait.until(lambda localizar_bt_subir:localizar_bt_subir.find_element(By.CSS_SELECTOR,CONFIG['dialogdrive']))
-    #         self.driver.implicitly_wait(5)
+            localizar_dialog_drive = self.wait.until(lambda localizar_bt_subir:localizar_bt_subir.find_element(By.CSS_SELECTOR,CONFIG['dialogdrive']))
+            self.driver.implicitly_wait(5)
 
-    #         mover_imagen = self.componente._drag_and_drop()
-    #         if mover_imagen:
-    #             imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['localizar_imagenes'])))
-    #             total_imagenes_cargadas = len(imagencargada)
-    #             if total_imagenes_cargadas > 0:
-    #                 time.sleep(4)
-    #                 localizar_dominiodrive_imagen_actual = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['imagen_actual'])))
-    #                 url_extraction = localizar_dominiodrive_imagen_actual[imagen].get_attribute('data-view-file-link')
-    #                 transferencia_exitosa = self.componente._uploaded_file_verification(esquema=url_extraction)
-    #                 if transferencia_exitosa:
-    #                     logging.info('[+] transferencia de archivo exitoso')
-
+            mover_imagen = self.componente._drag_and_drop()
+            if mover_imagen:
+                imagencargada = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['localizar_imagenes'])))
+                total_imagenes_cargadas = len(imagencargada)
+                if total_imagenes_cargadas > 0:
+                    time.sleep(4)
+                    localizar_dominiodrive_imagen_actual = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,CONFIG['imagen_actual'])))
+                    url_extraction = localizar_dominiodrive_imagen_actual[imagen].get_attribute('data-view-file-link')
+                    transferencia_exitosa = self.componente._uploaded_file_verification(esquema=url_extraction)
+                    if transferencia_exitosa:
+                        logging.info('[+] transferencia de archivo exitoso')
