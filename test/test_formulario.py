@@ -5,13 +5,13 @@ from objetos import Config,Fecha
 from app import Guiki
 import os
 from app import kimera
+import platform
 
 suministro = random.getrandbits(32)
 
 navegador = Config(
     url = "https://docs.google.com/forms/d/e/1FAIpQLScl9GppEl6eY8sri9rZ8qOoQWRVj0-0m0G-Z2Gc7wehFGIVww/viewform",
-    profile = os.path.join(os.path.expanduser('~'),'Proyects','kiwi','ur8ejeca.default-release'),
-    # profile = '/home/kimshizi/.mozilla/firefox/ur8ejeca.default-release',
+    profile = '/home/kimshizi/.mozilla/firefox/ur8ejeca.default-release' if 'Debian' in platform.version() else os.path.join(os.path.expanduser('~'),'Proyects','kiwi','ur8ejeca.default-release'),
     headless = False,
     timeout = 40)
 
@@ -48,11 +48,9 @@ formulario = {
 
 }
 
-# capturas = 'Documents/pqt5/capturas' # local
-capturas = 'Proyects/kiwi/capturas' # vps
+capturas = 'Documents/pqt5/capturas' if 'Debian' in platform.version() else 'Proyects/kiwi/capturas' 
 
-# upload_driver = 'Documents/pqt5/imagenes' # local
-upload_driver = 'Proyects/kiwi/imagenes' # vps
+upload_driver = 'Documents/pqt5/imagenes' if 'Debian' in platform.version() else 'Proyects/kiwi/imagenes'
 
 if __name__== "__main__":
     navegador_thread = threading.Thread(target=kimera,args=(navegador,capturas,formulario))
