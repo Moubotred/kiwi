@@ -17,6 +17,8 @@ lib64/
 ur8ejeca.default-release/
 imagenes/
 capturas/
+telegram/
+_test_/widgetMod.py
 
 *.log
 .txt
