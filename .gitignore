@@ -11,6 +11,9 @@ core/backup/
 estrutura/
 pqt5_widget/
 
+.wwebjs_auth/
+.wwebjs_cache/
+
 share/
 lib/
 lib64/
