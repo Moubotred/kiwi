@@ -24,7 +24,7 @@ _test_/widgetMod.py
 
 __pyache__/
 
-node_modules/
+node_modules/ 
 share/
 
 *.log
