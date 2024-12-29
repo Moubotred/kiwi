@@ -22,9 +22,15 @@ telegram/
 whatsapp/
 _test_/widgetMod.py
 
-signal/
+__pyache__/
+
+node_modulos/
+share/
 
 *.log
 .txt
 *.cfg
 *.png
+
+package-lock.json
+package.json
