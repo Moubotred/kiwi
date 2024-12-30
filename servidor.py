@@ -59,36 +59,20 @@ async def predict_batch(suministro:bytes):
     json_string = suministro.decode("utf-8")
     datos = json.loads(json_string)
     
-    model_path = os.path.join('/home/kimshizi/Proyects/monitoring/py/apis','modelo_convertido.tflite')
-    labels_path = os.path.join('/home/kimshizi/Proyects/monitoring/py/apis','labels.txt')
+    path_inicial = os.getcwd()
+
+    model_path = os.path.join(path_inicial,'apis','modelo_convertido.tflite')
+    labels_path = os.path.join(path_inicial,'apis','labels.txt')
 
     # Inicializar el clasificador
     classifier = ImageClassifier(model_path=model_path, labels_path=labels_path)
 
-    # Obtener lista de imágenes
-
-    image_dir = os.path.join(os.path.expanduser('~'),'imagenes',datos['usuario'])
-    # image_files = sorted(os.listdir(image_dir))
-    # image_files = os.listdir(image_dir)
-
-    # image_files = suminsitro # imagen para ver la predicion
-
-    predicti = {}
-
-    # Predecir las imágenes y obtener los resultados
-    predictions = classifier.predict_batch(image_dir)
-
     try:
-        # Imprimir los resultados
-        # for image_file, prediction in zip(image_files, predictions):
         
-        predicti[image_dir.split('/')[-1]] = predictions
-
-        return {"suministro": predicti}
-
+        prediccion = classifier.predict_batch(suministro)
+        return {"suministro": prediccion}
+    
     except Exception as e:
         # print(f"Predicción para la imagen {image_file}: {prediction}")
         # predicti.append(prediction)
-        raise HTTPException(status_code=500, detail='o se pudo realizar la prediccion')
-
-    # return {"predictions": image_files}
+        raise HTTPException(status_code=500, detail='no se pudo realizar la prediccion')

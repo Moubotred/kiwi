@@ -61,21 +61,39 @@ class ImageClassifier:
         # Retornar el nombre de la clase sin índice
         return self.class_names[index].split()[1]
 
-    def predict_batch(self, image_paths):
+    def predict_batch(self, usuario:str) -> list:
         """Predecir las clases para múltiples imágenes (de manera secuencial)"""
 
-        home = os.path.expanduser('~')
-        # path = os.path.join(home,image_paths) if 'Debian' in platform.version() else os.path.join(home,'monitoring/descargas/procesar')
+        # image_dir = os.path.join(os.path.dirname(os.getcwd()),'imagenes','Tony G.')
+        # image_files = sorted(os.listdir(image_dir))
+
+        lista = []
+
+        orden = ['retirado', 'nuevo', 'chip', 'fasorial']
+
+        path_current = os.getcwd()
+        path_back = os.path.dirname(path_current)
+        path_absotule = os.path.join(path_back,'imagenes',usuario)
+        image_files = os.listdir(path_absotule)
 
         # Crea el directorio si no existe
-        if not os.path.exists(image_paths):
-            os.makedirs(os.path.dirname(image_paths),exist_ok=True)
+        if not os.path.exists(path_absotule):
+            os.makedirs(path_absotule,exist_ok=True)
 
-        # results = []
-        # for image_path in image_paths:
-        result = self.predict_single(image_paths)
-            # results.append(result)
-        return result
+        for imagen in image_files:
+            path_absotule_image = os.path.join(path_absotule,imagen)
+            predictions = self.predict_single(path_absotule_image)
+            diccionario = {'imagen': imagen, 'etiqueta': predictions}  # Crear un nuevo diccionario
+            lista.append(diccionario)  # Agregarlo a la lista
+        
+        # ordenas los datos segun la lista de orden de la variable orden
+        datos_ordenados = sorted(lista, key=lambda x: orden.index(x['etiqueta']))
+
+        # pasa a lista los datos de manera ordenada que retorna una lista de datos ordenados
+        imagenes = [d['imagen'] for d in datos_ordenados]
+
+        return imagenes
+
 
 def main():
     # Inicializar el clasificador
@@ -85,15 +103,21 @@ def main():
     )
     
     # Obtener lista de imágenes
-    image_dir = '/home/kimshizi/Downloads/clasificador/procesar'
-    image_files = sorted(os.listdir(image_dir))
+    # image_dir = os.path.join(os.path.dirname(os.getcwd()),'imagenes','Tony G.')
+    # image_files = sorted(os.listdir(image_dir))
 
     # Predecir las imágenes y obtener los resultados
-    predictions = classifier.predict_batch(image_files)
+    predictions = classifier.predict_batch(usuario='Tony G.')
+    print(predictions)
     
-    # Imprimir los resultados
-    for image_file, prediction in zip(image_files, predictions):
-        print(f"Predicción para la imagen {image_file}: {prediction}")
+    # # Imprimir los resultados
+    # for image_file, prediction in zip(image_files, predictions):
+    #     print(f"Predicción para la imagen {image_file}:{prediction}")
+
+    # for imagen in imagenes:
+    #     diccionario = {'imagen': imagen, 'etiqueta': predictions}  # Crear un nuevo diccionario
+    #     lista.append(diccionario)  # Agregarlo a la lista
+
 
 # if __name__ == "__main__":
     # main()
