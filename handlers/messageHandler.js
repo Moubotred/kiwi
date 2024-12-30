@@ -45,10 +45,6 @@ module.exports = async (client, message) => {
 
         const suministro = await download.mediaDownimage(message)
 
-        // const jsonString = JSON.stringify(info);
-
-        // Convertir la cadena JSON a bytes (UTF-8)
-        // const bytes = new TextEncoder().encode(jsonString);
 
         const prediccion = await solicitud.localendpoint('prediccion',suministro.usuario)
 
