@@ -54,22 +54,22 @@ async def actividad(suministro: str):
         raise HTTPException(status_code=500, detail=resultado)
 
 @app.get("/prediccion")
-async def predict_batch(suministro:bytes):
+async def predict_batch(suministro:str):
 
-    json_string = suministro.decode("utf-8")
-    datos = json.loads(json_string)
+    # json_string = suministro.decode("utf-8")
+    # datos = json.loads(json_string)
     
-    path_inicial = os.getcwd()
+    # path_inicial = os.getcwd()
 
-    model_path = os.path.join(path_inicial,'apis','modelo_convertido.tflite')
-    labels_path = os.path.join(path_inicial,'apis','labels.txt')
+    model_path = os.path.join('/home/kimshizi/Documents/pqt5/apis','modelo_convertido.tflite')
+    labels_path = os.path.join('/home/kimshizi/Documents/pqt5/apis','labels.txt')
 
     # Inicializar el clasificador
     classifier = ImageClassifier(model_path=model_path, labels_path=labels_path)
 
     try:
-        
         prediccion = classifier.predict_batch(suministro)
+        # prediccion = 'Holi'
         return {"suministro": prediccion}
     
     except Exception as e:

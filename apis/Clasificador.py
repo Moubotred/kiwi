@@ -1,6 +1,7 @@
 # whatsapp/apis/Clasificacion.py
 
 import os
+import subprocess
 import platform
 import numpy as np
 from PIL import Image, ImageOps
@@ -64,16 +65,17 @@ class ImageClassifier:
     def predict_batch(self, usuario:str) -> list:
         """Predecir las clases para múltiples imágenes (de manera secuencial)"""
 
-        # image_dir = os.path.join(os.path.dirname(os.getcwd()),'imagenes','Tony G.')
-        # image_files = sorted(os.listdir(image_dir))
+        # path_user = os.getcwd()
+        # image_dir = os.path.join(path_user,'imagenes',usuario)
 
         lista = []
 
         orden = ['retirado', 'nuevo', 'chip', 'fasorial']
 
         path_current = os.getcwd()
-        path_back = os.path.dirname(path_current)
-        path_absotule = os.path.join(path_back,'imagenes',usuario)
+
+        # path_back = os.path.dirname(path_current)
+        path_absotule = os.path.join(path_current,'imagenes',usuario)
         image_files = os.listdir(path_absotule)
 
         # Crea el directorio si no existe
@@ -95,20 +97,21 @@ class ImageClassifier:
         return imagenes
 
 
-def main():
-    # Inicializar el clasificador
-    classifier = ImageClassifier(
-        model_path=os.path.join(os.getcwd(), 'modelo_convertido.tflite'),
-        labels_path=os.path.join(os.getcwd(), 'labels.txt')
-    )
+
+# def main():
+#     # Inicializar el clasificador
+#     classifier = ImageClassifier(
+#         model_path=os.path.join(os.getcwd(), 'modelo_convertido.tflite'),
+#         labels_path=os.path.join(os.getcwd(), 'labels.txt')
+#     )
     
     # Obtener lista de imágenes
     # image_dir = os.path.join(os.path.dirname(os.getcwd()),'imagenes','Tony G.')
     # image_files = sorted(os.listdir(image_dir))
 
     # Predecir las imágenes y obtener los resultados
-    predictions = classifier.predict_batch(usuario='Tony G.')
-    print(predictions)
+    # predictions = classifier.predict_batch(usuario='Tony G.')
+    # print(predictions)
     
     # # Imprimir los resultados
     # for image_file, prediction in zip(image_files, predictions):
@@ -119,5 +122,7 @@ def main():
     #     lista.append(diccionario)  # Agregarlo a la lista
 
 
-# if __name__ == "__main__":
-    # main()
+if __name__ == "__main__":
+    path_user = os.path.dirname(os.getcwd())
+    image_dir = os.path.join(path_user,'imagenes','i-o')
+    print(image_dir)
