@@ -1,3 +1,4 @@
+#
 import time
 import sys
 from PyQt5.QtGui import QPixmap, QDrag
@@ -158,7 +159,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     # upload_dir = os.path.join(os.path.expanduser('~'), 'Documents/pqt5/imagenes/i-o')
     # ls = os.listdir(upload_dir)
-    
+
     window = IntegratedWindow(path_imagenes=None,imagenes=None)
     window.show()
     sys.exit(app.exec_())
