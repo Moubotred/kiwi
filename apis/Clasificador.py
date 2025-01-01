@@ -62,7 +62,7 @@ class ImageClassifier:
         # Retornar el nombre de la clase sin índice
         return self.class_names[index].split()[1]
 
-    def predict_batch(self, usuario:str) -> list:
+    def predict_batch(self,usuario:str,fileNames:list) -> list:
         """Predecir las clases para múltiples imágenes (de manera secuencial)"""
 
         # path_user = os.getcwd()
@@ -76,9 +76,10 @@ class ImageClassifier:
 
         # path_back = os.path.dirname(path_current)
         path_absotule = os.path.join(path_current,'imagenes',usuario)
-        image_files = os.listdir(path_absotule)
+        # image_files = os.listdir(path_absotule)
+        image_files = fileNames
 
-        # Crea el directorio si no existe
+        # # Crea el directorio si no existe
         if not os.path.exists(path_absotule):
             os.makedirs(path_absotule,exist_ok=True)
 
@@ -122,7 +123,4 @@ class ImageClassifier:
     #     lista.append(diccionario)  # Agregarlo a la lista
 
 
-if __name__ == "__main__":
-    path_user = os.path.dirname(os.getcwd())
-    image_dir = os.path.join(path_user,'imagenes','i-o')
-    print(image_dir)
+# if __name__ == "__main__":

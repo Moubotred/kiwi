@@ -1,7 +1,7 @@
 import time
 import sys
 from PyQt5.QtGui import QPixmap, QDrag
-from PyQt5.QtCore import Qt, QUrl, QMimeData, QThread, pyqtSignal
+from PyQt5.QtCore import Qt, QUrl, QMimeData
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, 
     QSplitter, QHBoxLayout,
@@ -15,10 +15,12 @@ import platform
 from libform.taskform import FormWorker
 
 class IntegratedWindow(QMainWindow):
-    def __init__(self, upload_directory):
+    def __init__(self,path_imagenes,imagenes):
         super().__init__()
         self.form_data = None  # Aquí almacenarás los datos del formulario
-        self.upload = upload_directory
+        self.path_imagenes = path_imagenes
+        self.imagenes = imagenes
+
         self.initui()
         
     def initui(self):
@@ -35,10 +37,16 @@ class IntegratedWindow(QMainWindow):
         """--------------------"""
 
         """ Sección gestor de imágenes """ 
-        self.imagenes = os.path.join(os.path.expanduser('~'),self.upload)
-        self.directorio = self.imagenes if os.path.abspath(self.imagenes) else os.makedirs(self.imagenes,exist_ok=True)
+        # self.imagenes = ''
+        # self.imagenes = os.path.join(os.path.expanduser('~'),self.upload)
+
+        self.directorio = self.path_imagenes if os.path.abspath(self.path_imagenes) else os.makedirs(self.path_imagenes,exist_ok=True)
+
         # self.directorio = '/home/kimshizi/Documents/pqt5/_test_/imagenes'
-        self.indice_imagenes = sorted(os.listdir(self.directorio))
+        # self.indice_imagenes = sorted(os.listdir(self.directorio))
+
+        self.indice_imagenes = self.imagenes
+
         self.indice_inicial = 0
         self.indice_actual = 0  # Iniciar en 0
         self.pixmap = QPixmap(os.path.join(self.directorio, self.indice_imagenes[self.indice_actual]))
@@ -78,7 +86,7 @@ class IntegratedWindow(QMainWindow):
             "telemedida": "No",
             "se_entregó_medidor": "Sí",
             "tranferencia_mutiple": int("5"),
-        }
+        }   
         
 
         """
@@ -93,7 +101,11 @@ class IntegratedWindow(QMainWindow):
         self.worker.finished_signal.connect(self.process_finished)
         self.worker.start()
 
+        
+
         """
+
+
         
     def gestorArchivos(self):
         contenedor = QWidget()
@@ -144,7 +156,9 @@ class IntegratedWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    upload_dir = os.path.join(os.path.expanduser('~'), 'Documents/pqt5/imagenes')
-    window = IntegratedWindow(upload_dir)
+    # upload_dir = os.path.join(os.path.expanduser('~'), 'Documents/pqt5/imagenes/i-o')
+    # ls = os.listdir(upload_dir)
+    
+    window = IntegratedWindow(path_imagenes=None,imagenes=None)
     window.show()
     sys.exit(app.exec_())

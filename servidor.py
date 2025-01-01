@@ -1,4 +1,8 @@
+
 from urllib.parse import unquote
+
+import sys
+from PyQt5.QtWidgets import QApplication
 
 from fastapi import FastAPI, HTTPException
 from apis.Luzdelsur import LuzdelsurRecibo
@@ -9,11 +13,14 @@ import os
 from constantes import pydirecion
 from typing import List
 from pydantic import BaseModel
-
+# from sig.example import IntegratedWindow
 import json
 
 
 app = FastAPI()
+
+usuario_dat = []
+imagenes_dat = []
 
 class path_prediccion(BaseModel):
     usuario: str
@@ -54,25 +61,45 @@ async def actividad(suministro: str):
         raise HTTPException(status_code=500, detail=resultado)
 
 @app.get("/prediccion")
-async def predict_batch(suministro:str):
+async def prediccion(suministro:bytes):
 
-    # json_string = suministro.decode("utf-8")
-    # datos = json.loads(json_string)
-    
+    json_string = suministro.decode("utf-8")
+    datos = json.loads(json_string)
+
+    global usuario_dat 
+    global imagenes_dat
+
+    usuario = list(datos.keys())[0]
+    imagenes = list(datos.values())[0]
+
+    usuario_dat.append(usuario)
+
     # path_inicial = os.getcwd()
 
     model_path = os.path.join('/home/kimshizi/Documents/pqt5/apis','modelo_convertido.tflite')
     labels_path = os.path.join('/home/kimshizi/Documents/pqt5/apis','labels.txt')
 
-    # Inicializar el clasificador
+    # # Inicializar el clasificador
     classifier = ImageClassifier(model_path=model_path, labels_path=labels_path)
 
     try:
-        prediccion = classifier.predict_batch(suministro)
+        prediccion = classifier.predict_batch(usuario=usuario,fileNames=imagenes)
+        imagenes_dat.append(prediccion)
         # prediccion = 'Holi'
-        return {"suministro": prediccion}
+        return {"suministro":prediccion}
     
     except Exception as e:
         # print(f"Predicción para la imagen {image_file}: {prediction}")
         # predicti.append(prediction)
         raise HTTPException(status_code=500, detail='no se pudo realizar la prediccion')
+
+@app.post("/reenviar_data")
+async def retrieve_data():
+
+    """
+    Endpoint para enviar los datos almacenados a quien lo solicite.
+    """
+
+    if not usuario_dat and not imagenes_dat:
+        raise HTTPException(status_code=404, detail="datos no disponibles !!!")
+    return {"status": "success", "data": {usuario_dat[0]:imagenes_dat[0]}}

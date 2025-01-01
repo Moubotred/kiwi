@@ -9,8 +9,10 @@ const solicitud = require('../utils/request.js');
 const { measureMemory } = require('vm');
 
 let statusp = false; // Estado inicial deshabilitado
-const maxImages = 5; // Límite de imágenes
+const maxImages = 4; // Límite de imágenes
 let imageCountp = 0;  // Contador de imágenes
+let imagenes_formulario = '';
+let download_complet = [];
 
 module.exports = async (client, message) => {
 
@@ -31,25 +33,42 @@ module.exports = async (client, message) => {
             // console.log(imageCountp)
 
             statusp = command.getStatus()
-            // console.log(statusp)
+            // console.log(statusp) 
 
         }
 
     }
-
+ 
     if (message.type === 'image') {
         if (!statusp) {
             message.reply('🚫 El procesamiento de imágenes está deshabilitado. Usa /f start para habilitarlo.');
             return;
-        }
+        }        
 
         const suministro = await download.mediaDownimage(message)
 
+        // console.log(prediccion.suministro)
+        
+        download_complet.push(suministro?.file)
+        
+        if (download_complet.length === 4){
 
-        const prediccion = await solicitud.localendpoint('prediccion',suministro.usuario)
+            const data = {
+                [suministro.usuario]: download_complet
+            };
 
-        console.log(prediccion.suministro)
+            const jsonData = JSON.stringify(data); // Serializar a JSON
+            const byteData = new TextEncoder().encode(jsonData); // Convertir a bytes
+            const prediccion = await solicitud.localendpoint('prediccion',byteData)
+            imagenes_formulario = prediccion.suministro
+            // console.log(prediccion.suministro)
+            download_complet.splice(0, download_complet.length);
 
+            // const prediccion = await solicitud.localendpoint('prediccion',suministro.usuario)
+        };
+
+
+        
         // solicitud.popmensaje(prediccion, message)
 
         imageCountp++;
@@ -58,7 +77,9 @@ module.exports = async (client, message) => {
         if (imageCountp >= maxImages) {
             message.reply('⛔ iniciando resolucion formulario');
             statusp = false;
-
+            console.log('⛔ iniciando resolucion formulario')
+            // console.log(imagenes_formulario)
+            formulario = await solicitud.localendpoint('prediccion','')
         }
     }
 };

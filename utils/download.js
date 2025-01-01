@@ -15,9 +15,13 @@ async function mediaDownimage(message){
         try {
         const media = await message.downloadMedia();
         if (media) {
+
+            const directorio = path.join(__dirname,'../','imagenes',contactName);
+
+            console.log('descarga  imagen')
+
             const fileName = chance.string({ length: 7, pool: '1234567' }) + '.jpg';
             // const directorio = path.join(__dirname, '../../', 'imagenes',contactName);
-            const directorio = path.join(__dirname,'../','imagenes',contactName);
             if (!fs.existsSync(directorio)) {
             fs.mkdirSync(directorio, { recursive: true });
             }
@@ -27,7 +31,7 @@ async function mediaDownimage(message){
 
             const info = {
                 usuario:contactName,
-                // file:fileName
+                file:fileName
             }
 
             return info;
